@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viettree AI | AI Services for Modern Businesses</title>
+  <meta name="description" content="Viettree AI cung cấp giải pháp AI, tự động hóa, chatbot, phân tích dữ liệu và hệ thống AI tùy chỉnh cho doanh nghiệp.">
+  <style>
+    :root {
+      --green: #2f8f2f;
+      --green-bright: #42b542;
+      --green-soft: rgba(66, 181, 66, 0.16);
+      --ink: #111714;
+      --muted: #66736c;
+      --line: rgba(17, 23, 20, 0.12);
+      --paper: #f7f8f5;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      color: var(--white);
+    }
+
+    .nav {
+      width: min(1280px, calc(100% - 48px));
+      min-height: 86px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 54px;
+      position: relative;
+      border: 4px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .brand-mark::before {
+      content: "";
+      position: absolute;
+      inset: 13px 10px 13px 15px;
+      border: 4px solid currentColor;
+      border-left: 0;
+      border-bottom: 0;
+      border-radius: 50% 50% 50% 6px;
+      transform: rotate(-24deg);
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      right: 5px;
+      bottom: -8px;
+      width: 20px;
+      height: 4px;
+      border-radius: 999px;
+      background: currentColor;
+      transform: rotate(48deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: rgba(255, 255, 255, 0.86);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .nav-links a {
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      color: var(--white);
+    }
+
+    .nav-action svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.5;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(9, 13, 11, 0.82) 0%, rgba(9, 13, 11, 0.58) 38%, rgba(9, 13, 11, 0.18) 72%),
+        linear-gradient(180deg, rgba(9, 13, 11, 0.35) 0%, rgba(9, 13, 11, 0.22) 44%, rgba(9, 13, 11, 0.78) 100%),
+        radial-gradient(circle at 78% 30%, rgba(255, 255, 255, 0.28), transparent 24%),
+        linear-gradient(135deg, #233329 0%, #445b4e 38%, #88907d 64%, #37442b 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 68% 44%, rgba(66, 181, 66, 0.34) 0 2px, transparent 3px),
+        radial-gradient(circle at 76% 54%, rgba(255, 255, 255, 0.34) 0 1px, transparent 2px),
+        radial-gradient(circle at 84% 39%, rgba(255, 255, 255, 0.28) 0 1px, transparent 2px),
+        linear-gradient(115deg, transparent 0 47%, rgba(255, 255, 255, 0.13) 47.2% 47.35%, transparent 47.6%),
+        linear-gradient(34deg, transparent 0 56%, rgba(66, 181, 66, 0.16) 56.2% 56.35%, transparent 56.6%),
+        linear-gradient(160deg, transparent 0 62%, rgba(255, 255, 255, 0.1) 62.2% 62.35%, transparent 62.6%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -8vw;
+      bottom: -10vh;
+      width: 58vw;
+      height: 70vh;
+      background:
+        radial-gradient(ellipse at 52% 48%, rgba(15, 23, 19, 0) 0 38%, rgba(15, 23, 19, 0.24) 39% 40%, transparent 41%),
+        linear-gradient(102deg, transparent 0 36%, rgba(249, 248, 232, 0.24) 36.5% 37.2%, transparent 38%),
+        linear-gradient(82deg, transparent 0 48%, rgba(249, 248, 232, 0.2) 48.5% 49%, transparent 50%),
+        linear-gradient(62deg, transparent 0 58%, rgba(249, 248, 232, 0.18) 58.3% 58.8%, transparent 59.4%);
+      opacity: 0.75;
+      transform: rotate(-4deg);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - 48px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 128px 0 96px;
+    }
+
+    .hero-copy {
+      width: min(630px, 100%);
+      padding-top: 72px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-size: clamp(46px, 6vw, 86px);
+      line-height: 0.98;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .hero-copy p {
+      max-width: 620px;
+      margin-bottom: 34px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.28;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 25px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      color: var(--white);
+      background: var(--green);
+    }
+
+    .button-primary:hover {
+      background: var(--green-bright);
+    }
+
+    .button-secondary {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-dots {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 30px;
+      display: flex;
+      gap: 12px;
+      transform: translateX(-50%);
+    }
+
+    .hero-dots span {
+      width: 11px;
+      height: 11px;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+    }
+
+    .hero-dots span:first-child {
+      background: var(--white);
+      border-color: var(--white);
+    }
+
+    .section {
+      padding: 92px 0;
+    }
+
+    .section-white {
+      background: var(--white);
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 0;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      min-height: 244px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .service-icon svg {
+      width: 23px;
+      height: 23px;
+      stroke-width: 2.1;
+    }
+
+    .service-card h3 {
+      margin-bottom: 12px;
+      font-size: 22px;
+      line-height: 1.18;
+    }
+
+    .service-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .proof {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .proof-visual {
+      min-height: 430px;
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(17, 23, 20, 0.1), rgba(17, 23, 20, 0.54)),
+        radial-gradient(circle at 35% 26%, rgba(66, 181, 66, 0.38), transparent 23%),
+        linear-gradient(135deg, #22352a, #6d7a63 52%, #1f291f);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-visual::before {
+      content: "";
+      position: absolute;
+      inset: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 58px 58px;
+    }
+
+    .proof-visual::after {
+      content: "";
+      position: absolute;
+      left: 18%;
+      right: 16%;
+      bottom: 25%;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.82), transparent);
+      box-shadow:
+        80px -90px 0 rgba(66, 181, 66, 0.8),
+        210px -18px 0 rgba(255, 255, 255, 0.72),
+        340px -126px 0 rgba(66, 181, 66, 0.62);
+    }
+
+    .proof-copy h2 {
+      margin-bottom: 22px;
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.05;
+    }
+
+    .proof-copy p {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .metric {
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green);
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .process-step {
+      min-height: 210px;
+      padding: 28px;
+      background: var(--paper);
+    }
+
+    .process-step span {
+      display: block;
+      margin-bottom: 38px;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .process-step h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .process-step p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cta {
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(9, 13, 11, 0.9), rgba(9, 13, 11, 0.7)),
+        linear-gradient(135deg, #142119, #335337 58%, #162015);
+    }
+
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+    }
+
+    .cta h2 {
+      max-width: 720px;
+      margin-bottom: 0;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 1.05;
+    }
+
+    .site-footer {
+      padding: 28px 0;
+      color: rgba(255, 255, 255, 0.68);
+      background: #0d120f;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        width: min(100% - 32px, 720px);
+      }
+
+      .brand {
+        font-size: 24px;
+      }
+
+      .brand-mark {
+        width: 44px;
+        height: 44px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-inner,
+      .container {
+        width: min(100% - 32px, 720px);
+      }
+
+      .hero-copy {
+        padding-top: 32px;
+      }
+
+      .section-heading,
+      .proof,
+      .cta-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof {
+        gap: 36px;
+      }
+
+      .proof-visual {
+        min-height: 320px;
+      }
+
+      .process {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-inner,
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        min-height: 760px;
+      }
+
+      .hero-inner {
+        min-height: 760px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Viettree AI</span>
+      </a>
+      <div class="nav-links" aria-label="Primary links">
+        <a href="#services">Dịch vụ</a>
+        <a href="#approach">Giải pháp</a>
+        <a href="#process">Quy trình</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+      <a class="nav-action" href="#contact" aria-label="Contact Viettree AI">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.66 2.78a2 2 0 0 1-.45 2.11L9 10.82a16 16 0 0 0 4.18 4.18l1.21-1.21a2 2 0 0 1 2.11-.45c.88.31 1.82.53 2.78.66A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">AI consulting · automation · data systems</p>
+          <h1 id="hero-title">AI thực dụng cho doanh nghiệp tăng trưởng.</h1>
+          <p>Viettree AI thiết kế, triển khai và vận hành các giải pháp trí tuệ nhân tạo giúp đội ngũ của bạn tự động hóa công việc, khai thác dữ liệu và phục vụ khách hàng nhanh hơn.</p>
+          <div class="actions">
+            <a class="button button-primary" href="#services">Xem dịch vụ</a>
+            <a class="button button-secondary" href="#contact">Bắt đầu dự án</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-dots" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </section>
+
+    <section class="section section-white" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Dịch vụ AI được xây cho vận hành thật.</h2>
+          <p>Từ chiến lược đến triển khai, Viettree AI tập trung vào bài toán có tác động rõ ràng: tiết kiệm thời gian, giảm lỗi thủ công và tăng tốc ra quyết định.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19V5"/><path d="M4 5h16l-3 5 3 5H4"/></svg>
+            </div>
+            <h3>AI Strategy</h3>
+            <p>Đánh giá quy trình, chọn use case phù hợp và lập roadmap AI có thể đo lường bằng chỉ số kinh doanh.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>Workflow Automation</h3>
+            <p>Tự động hóa báo cáo, xử lý tài liệu, nhập liệu, phân loại yêu cầu và các bước lặp lại trong vận hành.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+            </div>
+            <h3>AI Chatbot</h3>
+            <p>Trợ lý nội bộ và chatbot chăm sóc khách hàng, kết nối dữ liệu doanh nghiệp và kiểm soát câu trả lời.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            </div>
+            <h3>Data Intelligence</h3>
+            <p>Dashboard, dự báo, phân tích hành vi và hệ thống hỏi đáp dữ liệu để lãnh đạo có câu trả lời nhanh hơn.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>Computer Vision</h3>
+            <p>Nhận diện hình ảnh, kiểm tra chất lượng, trích xuất thông tin từ ảnh và giám sát quy trình bằng thị giác máy.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            </div>
+            <h3>Custom AI Systems</h3>
+            <p>Xây dựng hệ thống AI tùy chỉnh, tích hợp API, dữ liệu riêng và quy trình bảo mật theo nhu cầu doanh nghiệp.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="approach">
+      <div class="container proof">
+        <div class="proof-visual" aria-hidden="true"></div>
+        <div class="proof-copy">
+          <h2>Thiết kế AI quanh dữ liệu, quy trình và con người.</h2>
+          <p>Mỗi dự án bắt đầu từ một bài toán cụ thể. Chúng tôi khảo sát dữ liệu hiện có, định nghĩa tiêu chuẩn chất lượng đầu ra, rồi triển khai theo từng giai đoạn để đội ngũ có thể kiểm chứng giá trị sớm.</p>
+          <div class="metrics" aria-label="Project metrics">
+            <div class="metric">
+              <strong>4-8</strong>
+              <span>tuần cho bản triển khai đầu tiên</span>
+            </div>
+            <div class="metric">
+              <strong>30%</strong>
+              <span>mục tiêu giảm tác vụ thủ công</span>
+            </div>
+            <div class="metric">
+              <strong>24/7</strong>
+              <span>hỗ trợ tự động cho khách hàng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="process">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Quy trình rõ ràng từ ý tưởng đến vận hành.</h2>
+          <p>Chúng tôi giữ phạm vi gọn, kiểm chứng liên tục và bàn giao hệ thống có tài liệu để đội ngũ của bạn sử dụng lâu dài.</p>
+        </div>
+        <div class="process">
+          <article class="process-step">
+            <span>01</span>
+            <h3>Discovery</h3>
+            <p>Làm rõ mục tiêu, dữ liệu, ràng buộc bảo mật và chỉ số thành công.</p>
+          </article>
+          <article class="process-step">
+            <span>02</span>
+            <h3>Prototype</h3>
+            <p>Tạo bản thử nghiệm nhanh để kiểm tra chất lượng AI trên dữ liệu thực tế.</p>
+          </article>
+          <article class="process-step">
+            <span>03</span>
+            <h3>Integration</h3>
+            <p>Kết nối hệ thống hiện có, API, dashboard và quy trình vận hành.</p>
+          </article>
+          <article class="process-step">
+            <span>04</span>
+            <h3>Optimization</h3>
+            <p>Theo dõi hiệu quả, tinh chỉnh prompt/model và mở rộng use case mới.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="contact">
+      <div class="container cta-inner">
+        <h2>Hãy bắt đầu với một bài toán AI có thể tạo giá trị trong quý này.</h2>
+        <a class="button button-primary" href="mailto:hello@viettree.ai">Liên hệ Viettree AI</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© 2026 Viettree AI. All rights reserved.</span>
+      <span>AI services · Automation · Data intelligence</span>
+    </div>
+  </footer>
+</body>
+</html>
